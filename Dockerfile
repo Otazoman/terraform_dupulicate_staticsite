@@ -87,5 +87,8 @@ ENV PATH $PATH:~/.tfenv/bin
 RUN tfenv install latest
 RUN tfenv use latest
 
+#certbot
+RUN apt-get install -y certbot
+
 #WorkingDir make
 RUN mkdir ~/terraform

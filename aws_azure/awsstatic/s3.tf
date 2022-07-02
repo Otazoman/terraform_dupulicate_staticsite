@@ -20,6 +20,7 @@ data "aws_iam_policy_document" "cloudfront-logging-bucket" {
 
 resource "aws_s3_bucket" "cloudfront-logging" {
   bucket        = "${var.bucket_name}-cloudfront-logs"
+  acl           = "private"
   policy        = data.aws_iam_policy_document.cloudfront-logging-bucket.json
   request_payer = "BucketOwner"
 }
