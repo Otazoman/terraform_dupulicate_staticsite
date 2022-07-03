@@ -28,6 +28,9 @@ resource "null_resource" "get_ns_records" {
   provisioner "local-exec" {
     command = "/bin/bash ./sh/get_ns_records.sh ${var.root_domain}"
   }
+  depends_on = [
+    aws_route53_zone.zone
+  ]
 }
 
 resource "aws_route53_record" "validations" {

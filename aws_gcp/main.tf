@@ -26,8 +26,8 @@ module "zone_acm" {
 
 module "awsstatic" {
   source              = "./awsstatic"
-  root_domain = var.rootdomain
-  site_domain = var.sitedomain
+  root_domain = var.root_domain
+  site_domain = var.site_domain
   bucket_name = var.name
   acm_cert = module.zone_acm.cert_arn
   dns_zone = module.zone_acm.domain_zone
@@ -36,19 +36,19 @@ module "awsstatic" {
 
 module "gcpstatic" {
   source              = "./gcpstatic"
-  googleCloud = var.google_cloud
-  googlebucket = var.google_bucket
+  googleCloud = var.googleCloud
+  googlebucket = var.googlebucket
   name = var.cert_name
-  root_domain = var.rootdomain
-  site_domain = var.sitedomain
+  root_domain = var.root_domain
+  site_domain = var.site_domain
   dns_zone = module.zone_acm.domain_zone
   depends_on = [module.awsstatic]
 }
 
 module "failoverdns" {
   source              = "./failoverdns"
-  root_domain = var.rootdomain
-  site_domain = var.sitedomain
+  root_domain = var.root_domain
+  site_domain = var.site_domain
   bucket_name = var.cert_name
   dns_zone = module.zone_acm.domain_zone
   cloudfront_id = module.awsstatic.cloudfront_alias_id

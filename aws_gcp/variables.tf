@@ -1,21 +1,21 @@
-variable "sitedomain" {
+variable "site_domain" {
   default = "www.youredomain"
 }
-variable "rootdomain" {
+variable "root_domain" {
   default = "youredomain"
 }
 variable "cert_name" {
   default = "youre-cert"
 }
 
-variable "google_cloud" {
+variable "googleCloud" {
   default = {
      project = "gcp-project-id"
      credentials = "~/.config/gcloud/sakey.json"
   }
 }
 
-variable "google_bucket" {
+variable "googlebucket" {
   default = {
     bucket_name   = "yourebucketname"
     region        = "asia"
