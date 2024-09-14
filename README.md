@@ -10,9 +10,9 @@ Ubuntu 24.04.1 LTS
 Docker version 27.2.0  
 
 # Usage  
-$ docker build . -t multicloud-ubuntu \
---build-arg nvm_ver=0.39.7 \
---build-arg ruby_ver=3.3.5 \
+$ docker build . -t multicloud-ubuntu \  
+--build-arg nvm_ver=0.39.7 \  
+--build-arg ruby_ver=3.3.5 \  
 --build-arg python_ver=3.12.6  
 $ mkdir terraform  
 $ docker container run --name terraform-dev -h terraform-dev -it -d \  
