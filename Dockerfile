@@ -1,4 +1,5 @@
-FROM ubuntu:latest
+ARG ubuntu_ver
+FROM ubuntu:$ubuntu_ver
 
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND noninteractive
