@@ -28,7 +28,7 @@ module "awsstatic" {
   source              = "./awsstatic"
   root_domain = var.root_domain
   site_domain = var.site_domain
-  bucket_name = var.name
+  bucket_name = var.root_domain
   acm_cert = module.zone_acm.cert_arn
   dns_zone = module.zone_acm.domain_zone
   depends_on = [module.zone_acm]
