@@ -8,19 +8,20 @@ and Terraform development environments into one.
 # Operating environment  
 Ubuntu 24.04.1 LTS  
 Docker version 27.2.0  
-
+Y
 # Usage  
 ```
-$ docker build . -t multicloud-ubuntu \  
---build-arg nvm_ver=0.39.7 \  
---build-arg ruby_ver=3.3.5 \  
---build-arg python_ver=3.12.6  
+$ docker build . -t multicloud-ubuntu \
+--build-arg nvm_ver=0.39.7 \
+--build-arg ruby_ver=3.3.5 \
+--build-arg python_ver=3.12.6 \
+--build-arg terraform_ver=1.9.5
 $ mkdir terraform  
-$ docker container run --name terraform-dev -h terraform-dev -it -d \  
- --mount type=bind,src=$(pwd)/terraform,dst=/root/terraform \  
- --restart=always \  
- -e TZ=Asia/Tokyo multicloud-ubuntu /bin/bash  
-$ docker exec -it terraform-dev /bin/bash  
+$ docker container run --name terraform-dev -h terraform-dev -it -d \
+ --mount type=bind,src=$(pwd)/terraform,dst=/root/terraform \
+ --restart=always \
+ -e TZ=Asia/Tokyo multicloud-ubuntu /bin/bash
+$ docker exec -it terraform-dev /bin/bash
 ```
 
 ### Caution  
@@ -63,17 +64,17 @@ item):  34
 ```
 # tee -a .bashrc <<_EOF_
 # AWS ENV
-export TF_VAR_access_key=AWS_ACCESSKEY
-export TF_VAR_secret_key=AWS_SECRET_ACCESS_KEY
-export TF_VAR_role_arn=AWS_RORLE_ARN
+export AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESSKEY
+export AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET_ACCESS_KEY
 # Azure ENV
-export ARM_SUBSCRIPTION_ID=subscriptionId
-export ARM_CLIENT_ID=appId
-export ARM_CLIENT_SECRET=password
-export ARM_TENANT_ID=tenant
+export ARM_SUBSCRIPTION_ID=yoursubscriptionId
+export ARM_CLIENT_ID=yourappId
+export ARM_CLIENT_SECRET=yourpassword
+export ARM_TENANT_ID=yourtenant
 export ARM_ENVIRONMENT=public
 # GCP ENV
 GOOGLE_CLOUD_KEYFILE_JSON=~/.secret/gcloud/sakey.json
 GOOGLE_CLOUD_PROJECT=${GCP_PROJECT_ID}
 _EOF_
+# source ~/.bashrc
 ```

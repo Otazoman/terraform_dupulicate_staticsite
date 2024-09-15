@@ -13,7 +13,7 @@ variable "cert_name" {
 }
 // Azure
 variable "resource_group_name" {
-  default = "yourresourcegroup"
+  default = "rg_multicloud_static_site"
 }
 variable "location" {
   default = "japaneast"

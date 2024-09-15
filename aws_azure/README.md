@@ -1,3 +1,7 @@
+# Operating environment  
+Ubuntu 24.04.1 LTS  
+terraform 1.9.5    
+
 # Usage  
 
 ## 1.Route53 zone registration with Shell script (run in Docker host)    

@@ -4,7 +4,7 @@ resource "azurerm_storage_account" "static_storage" {
   location                 = var.location
   account_tier             = "Standard"
   account_replication_type = var.type
-  enable_https_traffic_only = true
+  https_traffic_only_enabled  = true
 
   static_website {
     index_document = "index.html"

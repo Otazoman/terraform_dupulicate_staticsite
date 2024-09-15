@@ -78,7 +78,7 @@ resource "aws_route53_record" "www_domain" {
   name = var.site_domain
   type = "A"
   alias {
-    name = aws_cloudfront_distribution.static-site-dst.domain_name
+    name       = aws_cloudfront_distribution.static-site-dst.domain_name
     zone_id = aws_cloudfront_distribution.static-site-dst.hosted_zone_id
     evaluate_target_health = false
   }

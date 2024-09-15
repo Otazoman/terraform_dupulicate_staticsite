@@ -19,7 +19,13 @@ RUN DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y tzdata
 
 # Dev package get
-RUN apt-get -y install sudo git vim man curl wget unzip
+RUN apt-get -y install sudo git \
+  vim \
+  man \
+  curl \
+  wget \
+  unzip \
+  jq
 
 # Node Install
 ARG nvm_ver
@@ -88,11 +94,12 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
   apt-get update -y && apt-get install google-cloud-sdk -y
 
 # Terraform
+ARG terraform_ver
 RUN git clone https://github.com/tfutils/tfenv.git ~/.tfenv
 RUN echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bashrc
 ENV PATH $PATH:~/.tfenv/bin
-RUN tfenv install latest
-RUN tfenv use latest
+RUN tfenv install $terraform_ver
+RUN tfenv use $terraform_ver
 
 # certbot
 RUN apt-get install -y certbot

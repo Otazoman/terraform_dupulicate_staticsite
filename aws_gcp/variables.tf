@@ -11,7 +11,7 @@ variable "cert_name" {
 variable "googleCloud" {
   default = {
      project = "gcp-project-id"
-     credentials = "~/.config/gcloud/sakey.json"
+     credentials = "~/.secret/gcloud/serviceaccount.json"
   }
 }
 
