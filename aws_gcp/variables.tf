@@ -1,23 +1,24 @@
 variable "site_domain" {
-  default = "www.youredomain"
+  default = "www.example.com"
 }
 variable "root_domain" {
-  default = "youredomain"
+  default = "example.com"
 }
 variable "cert_name" {
-  default = "youre-cert"
+  default = "example"
 }
 
 variable "googleCloud" {
   default = {
-     project = "gcp-project-id"
-     credentials = "~/.secret/gcloud/serviceaccount.json"
+    project         = "yourprojectname"
+    credentials     = "yourserviceaccount json file path"
+    service_account = "yourserviceaccount"
   }
 }
 
 variable "googlebucket" {
   default = {
-    bucket_name   = "yourebucketname"
+    bucket_name   = "yourbucketname"
     region        = "asia"
     storage_class = "MULTI_REGIONAL"
     log_region    = "asia-northeast1"

@@ -4,3 +4,4 @@ variable "dns_zone" {}
 variable "name" {}
 variable "googleCloud" {}
 variable "googlebucket" {}
+variable "service_account" {}

@@ -4,8 +4,8 @@ resource "google_compute_backend_bucket" "bucket_backend" {
 }
 
 resource "google_compute_url_map" "urlmap" {
-  name        = "${var.name}-https-site"
-  description = "URL map for ${var.name}"
+  name            = "${var.name}-https-site"
+  description     = "URL map for ${var.name}"
   default_service = google_compute_backend_bucket.bucket_backend.self_link
   host_rule {
     hosts        = ["*"]
@@ -22,8 +22,8 @@ resource "google_compute_url_map" "urlmap" {
 }
 
 resource "google_compute_target_https_proxy" "https_proxy" {
-  name        = "${var.name}-proxy"
-  url_map     = google_compute_url_map.urlmap.self_link
+  name    = "${var.name}-proxy"
+  url_map = google_compute_url_map.urlmap.self_link
   ssl_certificates = [
     google_compute_managed_ssl_certificate.naked_lb_cert.id,
     google_compute_managed_ssl_certificate.www_lb_cert.id
@@ -31,15 +31,15 @@ resource "google_compute_target_https_proxy" "https_proxy" {
 }
 
 resource "google_compute_global_forwarding_rule" "https_ipv4" {
-  name   = "${var.name}-v4-fwdrule"
-  target = google_compute_target_https_proxy.https_proxy.id
+  name       = "${var.name}-v4-fwdrule"
+  target     = google_compute_target_https_proxy.https_proxy.id
   port_range = "443"
   ip_address = google_compute_global_address.lb_v4_address.address
 }
 
 resource "google_compute_global_forwarding_rule" "https_ipv6" {
-  name   = "${var.name}-v6-fwdrule"
-  target = google_compute_target_https_proxy.https_proxy.id
+  name       = "${var.name}-v6-fwdrule"
+  target     = google_compute_target_https_proxy.https_proxy.id
   port_range = "443"
   ip_address = google_compute_global_address.lb_v6_address.address
 }
@@ -54,8 +54,8 @@ resource "google_compute_url_map" "http_redirect" {
 }
 
 resource "google_compute_target_http_proxy" "http_default" {
-  name     = "${var.name}-https-redirect-proxy"
-  url_map  = google_compute_url_map.http_redirect.self_link
+  name    = "${var.name}-https-redirect-proxy"
+  url_map = google_compute_url_map.http_redirect.self_link
 }
 
 resource "google_compute_global_forwarding_rule" "http_ipv4" {
@@ -74,9 +74,11 @@ resource "google_compute_global_forwarding_rule" "http_ipv6" {
 
 resource "null_resource" "check_complete_lb" {
   provisioner "local-exec" {
-    command = "/bin/bash ./sh/gcp_cert_check.sh ${var.root_domain}"
+    command = "/bin/bash ./sh/gcp_cert_check.sh ${var.name}"
   }
   depends_on = [
+    google_compute_managed_ssl_certificate.naked_lb_cert,
+    google_compute_managed_ssl_certificate.www_lb_cert,
     aws_route53_record.gcp_root_domain,
     aws_route53_record.gcp_www_domain
   ]
