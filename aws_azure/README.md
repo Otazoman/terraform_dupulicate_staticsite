@@ -8,10 +8,10 @@ terraform 1.9.5
 cd /aws_azure
 sh/make_hosted_zone.sh yourdomain
 
-## 2. Register NS of Route53 in NameServer of freenom  
+## 2. Register NS of Route53 in NameServer  
 
 ## 3. TXT record issued by Let'sEncrypt (run in a separate terminal)  
-certbot certonly --manual -d tohonokai.tk --preferred-challenges dns
+certbot certonly --manual -d yourdomain --preferred-challenges dns
 
 ## 4.Add TXT string to Route53  
 sh/letsencrypt_dns_setting.sh yourdomain _acme-challenge YOURSTRING

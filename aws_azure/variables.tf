@@ -1,15 +1,15 @@
 // AWS
 variable "site_domain" {
-  default = "www.yourdomain"
+  default = "www.example.com"
 }
 variable "root_domain" {
-  default = "yourdomain"
+  default = "example.com"
 }
 variable "bucket_name" {
-  default = "yourbucketname"
+  default = "example.com"
 }
 variable "cert_name" {
-  default = "youre-cert"
+  default = "exampleazure"
 }
 // Azure
 variable "resource_group_name" {
@@ -19,20 +19,20 @@ variable "location" {
   default = "japaneast"
 }
 variable "storage_name" {
-  default = "yourstoragename"
+  default = "example_static_web_storage"
 }
 variable "type" {
   default = "GZRS"
 }
 variable "static_web_name" {
-  default = "yourstaticwebname"
+  default = "examplestaticweb"
 }
 variable "virutual_network_name" {
-  default = "yourvnetname"
+  default = "example_staticsiteweb_vnet"
 }
 variable "pfx_filename" {
-  default = "yourpfxfilename"
+  default = "example"
 }
 variable "cert_passwd" {
-  default = "yourcertpasswd"
+  default = "example"
 }

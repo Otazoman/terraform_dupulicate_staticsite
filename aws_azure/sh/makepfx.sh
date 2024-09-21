@@ -4,7 +4,7 @@ if [ $# != 3 ]; then
     echo 'Empty Filename! Please [./makepfx.sh domain filename password]'
     exit 1
 fi
-FILENAME=$1
+DOMAIN=$1
 FILENAME=$2
 CERTPASSWD=$3
 LEPATH=/etc/letsencrypt/live/${DOMAIN}

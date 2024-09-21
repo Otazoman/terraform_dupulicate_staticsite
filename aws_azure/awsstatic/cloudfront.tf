@@ -1,10 +1,9 @@
 resource "aws_cloudfront_distribution" "static-site-dst" {
+
   origin {
-    domain_name = aws_s3_bucket.static-site.bucket_regional_domain_name
-    origin_id   = local.s3-origin-id-static-site
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.static-site-idntity.cloudfront_access_identity_path
-    }
+    domain_name              = aws_s3_bucket.static-site.bucket_regional_domain_name
+    origin_id                = local.s3-origin-id-static-site
+    origin_access_control_id = aws_cloudfront_origin_access_control.static-site-oac.id
   }
 
   enabled             = true
@@ -26,7 +25,7 @@ resource "aws_cloudfront_distribution" "static-site-dst" {
 
   viewer_certificate {
     acm_certificate_arn            = var.acm_cert
-    minimum_protocol_version       = "TLSv1.2_2019"
+    minimum_protocol_version       = "TLSv1.2_2021"
     ssl_support_method             = "sni-only"
     cloudfront_default_certificate = false
   }
@@ -58,28 +57,33 @@ resource "aws_cloudfront_distribution" "static-site-dst" {
   }
 }
 
-resource "aws_cloudfront_origin_access_identity" "static-site-idntity" {
-  comment = "access-identity-static-site.s3.amazonaws.com"
+
+resource "aws_cloudfront_origin_access_control" "static-site-oac" {
+  name                              = "cf-oac-with-tf-staticsite"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
+
 
 resource "aws_route53_record" "root_domain" {
   zone_id = var.dns_zone
-  name = var.root_domain
-  type = "A"
+  name    = var.root_domain
+  type    = "A"
   alias {
-    name = aws_cloudfront_distribution.static-site-dst.domain_name
-    zone_id = aws_cloudfront_distribution.static-site-dst.hosted_zone_id
+    name                   = aws_cloudfront_distribution.static-site-dst.domain_name
+    zone_id                = aws_cloudfront_distribution.static-site-dst.hosted_zone_id
     evaluate_target_health = false
   }
 }
 
 resource "aws_route53_record" "www_domain" {
   zone_id = var.dns_zone
-  name = var.site_domain
-  type = "A"
+  name    = var.site_domain
+  type    = "A"
   alias {
-    name       = aws_cloudfront_distribution.static-site-dst.domain_name
-    zone_id = aws_cloudfront_distribution.static-site-dst.hosted_zone_id
+    name                   = aws_cloudfront_distribution.static-site-dst.domain_name
+    zone_id                = aws_cloudfront_distribution.static-site-dst.hosted_zone_id
     evaluate_target_health = false
   }
 }

@@ -46,6 +46,7 @@ module "azurestatic" {
   virutual_network_name = var.virutual_network_name
   pfx_filename          = var.pfx_filename
   cert_passwd           = var.cert_passwd
+  depends_on            = [module.awsstatic]
 }
 
 module "failoverdns" {

@@ -6,7 +6,7 @@ if [ $# != 1 ]; then
 fi
 domain=$1
 
-aws route53 create-hosted-zone --name ${domain} --caller-reference `date +%Y-%m-%d_%H-%M-%S`
+hostedzoneresult=$(aws route53 create-hosted-zone --name ${domain} --caller-reference `date +%Y-%m-%d_%H-%M-%S`)
 route53result=$(aws route53 list-hosted-zones-by-name --dns-name ${domain} | jq -r ".HostedZones[0].Id")
 HOSTED_ZONE_ID=$(echo ${route53result} | sed -e "s!/hostedzone/!!g")
 if [ "${HOSTED_ZONE_ID}" = "" ]; then
